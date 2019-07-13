@@ -7,7 +7,7 @@
 //
 
 #import "JKFarmerMainView.h"
-#import "JKFarmerMainCell.h"
+#import "JKFarmerEquipmentMainCell.h"
 #import "JKPondCell.h"
 #import "JKPondModel.h"
 
@@ -18,7 +18,7 @@
 #define LIMIT_OFFSET_Y -(IMAGE_HEIGHT + SCROLL_DOWN_LIMIT)
 #define SIGNBTN_Y (SCREEN_HEIGHT == 568.0 ? 30 : 100)
 
-@interface JKFarmerMainView() <UITableViewDelegate, UITableViewDataSource,JKFarmerMainCellDelegate>
+@interface JKFarmerMainView() <UITableViewDelegate, UITableViewDataSource,JKFarmerEquipmentMainCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIImageView *topImgV;
 @property (nonatomic, strong) UILabel *titleLb;
@@ -45,8 +45,6 @@
 @property (nonatomic, strong) NSString *region;
 @property (nonatomic, strong) NSMutableArray *rowNumberArr;
 @property (nonatomic, strong) NSMutableArray *sectionTitileArr;
-@property (nonatomic, strong) NSMutableArray *activelyArr;
-@property (nonatomic, strong) NSMutableArray *boolArr;
 @end
 
 @implementation JKFarmerMainView
@@ -65,19 +63,6 @@
     return _sectionTitileArr;
 }
 
-- (NSMutableArray *)activelyArr {
-    if (!_activelyArr) {
-        _activelyArr = [[NSMutableArray alloc] init];
-    }
-    return _activelyArr;
-}
-
-- (NSMutableArray *)boolArr {
-    if (!_boolArr) {
-        _boolArr = [[NSMutableArray alloc] init];
-    }
-    return _boolArr;
-}
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
@@ -180,7 +165,7 @@
     [params setObject:@"0" forKey:@"startTime"];
     [params setObject:@"0" forKey:@"endTime"];
     
-    NSString *urlStr = [NSString stringWithFormat:@"%@/RESTAdapter/app/mytask/%@/pondData",kUrl_Base, self.customerIdStr];
+    NSString *urlStr = [NSString stringWithFormat:@"%@/RESTAdapter/app/mytask/%@/customerPondData",kUrl_Base, self.customerIdStr];
     
     [YJProgressHUD showProgressCircleNoValue:@"加载中..." inView:self];
     [[JKHttpTool shareInstance] GetReceiveInfo:params url:urlStr successBlock:^(id responseObject) {
@@ -188,37 +173,31 @@
         if (responseObject[@"success"]) {
             [self.sectionTitileArr removeAllObjects];
             [self.rowNumberArr removeAllObjects];
-            [self.boolArr removeAllObjects];
-            [self.activelyArr removeAllObjects];
             
             for (NSDictionary *dict in responseObject[@"data"]) {
                 JKPondModel *pModel = [[JKPondModel alloc] init];
-                pModel.farmerId = dict[@"farmerId"];
-                pModel.area = dict[@"area"];
-                pModel.fishVariety = dict[@"fishVariety"];
-                pModel.fryNumber = dict[@"fryNumber"];
-                pModel.name = dict[@"name"];
-                pModel.phoneNumber = dict[@"phoneNumber"];
-                pModel.pondAddress = dict[@"pondAddress"];
-                pModel.pondId = dict[@"pondId"];
-                pModel.putInDate = dict[@"putInDate"];
+                pModel.area = dict[@"area"];//
+                pModel.fishVariety = dict[@"fishVariety"];//
+                pModel.name = dict[@"name"];//
+                pModel.pondAddress = dict[@"pondAddress"];//
+                pModel.pondId = dict[@"pondId"];//
+                pModel.putInDate = dict[@"putInDate"];//
                 if ([[NSString stringWithFormat:@"%@",dict[@"reckonSaleDate"]] isEqualToString:@"<null>"]) {
                     pModel.reckonSaleDate = @"";
                 } else {
-                    pModel.reckonSaleDate = dict[@"reckonSaleDate"];
+                    pModel.reckonSaleDate = dict[@"reckonSaleDate"];//
                 }
-                pModel.region = dict[@"region"];
+                pModel.region = dict[@"region"];//
                 pModel.childDeviceList = dict[@"childDeviceList"];
                 [self.sectionTitileArr addObject:pModel];
                 
                 NSMutableArray *arr = [[NSMutableArray alloc] init];
-                NSMutableArray *activelyArr = [[NSMutableArray alloc] init];
                 for (NSDictionary *dic in dict[@"childDeviceList"]) {
                     JKPondChildDeviceModel *pcdModel = [[JKPondChildDeviceModel alloc] init];
                     pcdModel.alarmType = dic[@"alarmType"];
                     pcdModel.alertlineTwo = dic[@"alertlineTwo"];
                     pcdModel.automatic = dic[@"automatic"];
-                    pcdModel.dissolvedOxygen = dic[@"dissolvedOxygen"];
+                    pcdModel.dissolvedOxygen = dic[@"oxy"];
                     pcdModel.enabled = dic[@"enabled"];
                     pcdModel.deviceId = dic[@"id"];
                     pcdModel.ident = dic[@"identifier"];
@@ -227,19 +206,23 @@
                     pcdModel.oxyLimitUp = dic[@"oxyLimitUp"];
                     pcdModel.ph = dic[@"ph"];
                     pcdModel.scheduled = dic[@"scheduled"];
-                    pcdModel.temperature = dic[@"temperature"];
+                    pcdModel.temperature = dic[@"temp"];
                     pcdModel.type = dic[@"type"];
                     pcdModel.workStatus = dic[@"workStatus"];
-                    NSArray *aeratorControls = dic[@"aeratorControlList"];
+                    NSArray *aeratorControls = dic[@"deviceControlInfoBeanList"];
                     if (aeratorControls != nil && ![aeratorControls isKindOfClass:[NSNull class]] && aeratorControls.count != 0) {
                         pcdModel.aeratorControlOne = aeratorControls[0][@"open"];
                         pcdModel.aeratorControlTwo = aeratorControls[1][@"open"];
+                        pcdModel.aeratorControlTree = aeratorControls[2][@"open"];
+                        pcdModel.aeratorControlFour = aeratorControls[3][@"open"];
+                        pcdModel.statusControlOne = aeratorControls[0][@"auto"];
+                        pcdModel.statusControlTwo = aeratorControls[1][@"auto"];
+                        pcdModel.statusControlTree = aeratorControls[2][@"auto"];
+                        pcdModel.statusControlFour = aeratorControls[3][@"auto"];
                     }
                     [arr addObject:pcdModel];
                 }
-                [self.activelyArr addObject:activelyArr];
                 [self.rowNumberArr addObject:arr];
-                [self.boolArr addObject:@YES];
             }
         }
         [self.tableView reloadData];
@@ -488,9 +471,9 @@
 }
 
 #pragma mark -- 设备详情
-- (void)pushDeviceInfoVC:(NSString *)deviceId {
+- (void)pushDeviceInfoVC:(JKPondChildDeviceModel *)dModel {
     if ([_delegate respondsToSelector:@selector(pushDevicesInfoVC:)]) {
-        [_delegate pushDevicesInfoVC:deviceId];
+        [_delegate pushDevicesInfoVC:dModel];
     }
 }
 
@@ -524,11 +507,7 @@
         if (self.isGeneral) {
             return 1;
         } else {
-            if ([self.boolArr[section - 1] boolValue] == NO) {
-                return 0;
-            }else {
-                return [self.rowNumberArr[section - 1] count];
-            }
+            return [self.rowNumberArr[section - 1] count];
         }
     }
 }
@@ -540,9 +519,9 @@
         if (self.rowNumberArr.count != 0) {
             NSInteger count = [self.rowNumberArr[indexPath.section - 1] count];
             if (indexPath.row == (count - 1) ) {
-                return 316;
+                return 195;
             } else {
-                return 306;
+                return 185;
             }
         } else {
             return 200;
@@ -559,85 +538,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (self.isGeneral) {
-        if (section == 0) {
-            return 0.1;
-        } else {
-            return 0.1;
-        }
-    } else {
-        if (section == 0) {
-            return 0.1;
-        } else {
-            return 51;
-        }
-    }
+    return 0.1;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (self.isGeneral) {
-        return nil;
-    } else {
-        if (section != 0) {
-            //创建headerView
-            UIView *headerView = [[UIView alloc] init];
-            headerView.frame = CGRectMake(0, 0, SCREEN_WIDTH, 51);
-            headerView.tag = 10 + section;
-            headerView.backgroundColor = kWhiteColor;
-            
-            //分割线
-            UILabel *horizontalLineLb = [[UILabel alloc] init];
-            horizontalLineLb.backgroundColor = kBgColor;
-            [headerView addSubview:horizontalLineLb];
-            [horizontalLineLb mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(headerView.mas_top);
-                make.left.right.equalTo(headerView);
-                make.height.mas_equalTo(1);
-            }];
-            
-            // 默认组是没有删除组的
-            JKPondModel *model = self.sectionTitileArr[section - 1];
-            //标题
-            UILabel *titleLb = [[UILabel alloc] init];
-            titleLb.text = model.name;
-            titleLb.numberOfLines = 1;
-            titleLb.font = JKFont(17);
-            [headerView addSubview:titleLb];
-            CGSize size = CGSizeMake(50,50); //设置一个行高上限
-            NSDictionary *attribute = @{NSFontAttributeName: titleLb.font};
-            CGSize labelsize = [titleLb.text boundingRectWithSize:size options:NSStringDrawingUsesDeviceMetrics attributes:attribute context:nil].size;
-            [titleLb mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.equalTo(headerView.mas_top);
-                make.left.equalTo(headerView.mas_left).offset(15);
-                if (labelsize.width > (SCREEN_WIDTH - 50)) {
-                    make.size.mas_equalTo(CGSizeMake(SCREEN_WIDTH - 50, 50));
-                } else {
-                    make.size.mas_equalTo(CGSizeMake(labelsize.width + 10, 50));
-                }
-            }];
-            
-            //箭头
-            UIImageView *arrowImgV = [[UIImageView alloc] init];
-            arrowImgV.image = [self.boolArr[section - 1] boolValue] ? [UIImage imageNamed:@"ic_arrow_up"] : [UIImage imageNamed:@"ic_arrow_down"];
-            [headerView addSubview:arrowImgV];
-            [arrowImgV mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.centerY.equalTo(headerView.mas_centerY);
-                make.right.equalTo(headerView.mas_right).offset(-15);
-                make.size.mas_equalTo(CGSizeMake(20, 10));
-            }];
-            
-            //添加轻扣手势
-            UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGestureRecognizer:)];
-            [headerView addGestureRecognizer:tap];
-            
-            return headerView;
-        } else {
-            return nil;
-        }
-    }
+-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    return nil;
 }
 
-- (void)extracted:(JKFarmerMainCell *)cell model:(JKPondChildDeviceModel *)model pModel:(JKPondModel *)pModel {
+- (void)extracted:(JKFarmerEquipmentMainCell *)cell model:(JKPondChildDeviceModel *)model pModel:(JKPondModel *)pModel {
     [cell configCellWithModel:model withPondModel:pModel];
 }
 
@@ -690,10 +598,11 @@
 
             return cell;
         } else {
-            NSString *cellIdentifier = @"JKFarmerMainCell";
-            JKFarmerMainCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+            NSString *cellIdentifier = @"JKFarmerEquipmentMainCell";
+            JKFarmerEquipmentMainCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell == nil) {
-                cell = [[JKFarmerMainCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellIdentifier];
+                cell = [[[NSBundle mainBundle] loadNibNamed:@"JKFarmerEquipmentMainCell" owner:nil options:nil] firstObject];
+
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.backgroundColor = kBgColor;
             } else {
@@ -722,21 +631,6 @@
     cell.preservesSuperviewLayoutMargins = NO;
 }
 
-#pragma mark -- UITapGestureRecognizer点击事件
-- (void)tapGestureRecognizer:(UITapGestureRecognizer *)tap {
-    //获取section
-    NSInteger section = tap.view.tag - 10;
-    //判断改变bool值
-    if ([self.boolArr[section - 1] boolValue] == YES) {
-        [self.boolArr replaceObjectAtIndex:(section - 1) withObject:@NO];
-        CGRect statusRect = [[UIApplication sharedApplication] statusBarFrame];
-        self.topImgV.frame = CGRectMake(0, -IMAGE_HEIGHT-statusRect.size.height, SCREEN_WIDTH, IMAGE_HEIGHT);
-    }else {
-        [self.boolArr replaceObjectAtIndex:(section - 1) withObject:@YES];
-    }
-    //刷新某个section
-    [_tableView reloadSections:[NSIndexSet indexSetWithIndex:section] withRowAnimation:UITableViewRowAnimationNone];
-}
 
 #pragma mark -- 懒加载
 - (UITableView *)tableView {

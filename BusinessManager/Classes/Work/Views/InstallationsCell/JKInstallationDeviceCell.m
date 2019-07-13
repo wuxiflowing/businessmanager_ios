@@ -13,6 +13,7 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *titleArr;
 @property (nonatomic, strong) NSMutableArray *valueArr;
+@property (nonatomic, strong) NSMutableArray *typeArr;
 @property (nonatomic, strong) JKInstallInfoModel *model;
 @end
 
@@ -44,6 +45,13 @@
         _valueArr = [[NSMutableArray alloc] init];
     }
     return _valueArr;
+}
+
+- (NSMutableArray *)typeArr {
+    if (!_typeArr) {
+        _typeArr = [[NSMutableArray alloc] init];
+    }
+    return _typeArr;
 }
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
@@ -88,6 +96,10 @@
         for (NSDictionary *dict in model.tabEquipmentBindPond) {
             [self.valueArr addObject:dict[@"ITEM1"]];
         }
+        [self.typeArr addObject:@""];
+        for (NSDictionary *dict in model.tabEquipmentBindPond) {
+            [self.typeArr addObject:dict[@"ITEM4"]];
+        }
     }
 }
 
@@ -108,16 +120,26 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     
-    cell.textLabel.text = self.titleArr[indexPath.row];
-    cell.textLabel.textColor = RGBHex(0x333333);
-    cell.textLabel.textAlignment = NSTextAlignmentLeft;
-    cell.textLabel.font = JKFont(14);
     
-    CGFloat width = (SCREEN_WIDTH - SCALE_SIZE(30)) / 3;
+    CGFloat width = (SCREEN_WIDTH - SCALE_SIZE(30)) / 4;
+    
+    UILabel *titleLb = [[UILabel alloc] init];
+    titleLb.text = self.titleArr[indexPath.row];
+    titleLb.textColor = RGBHex(0x333333);
+    titleLb.textAlignment = NSTextAlignmentLeft;
+    titleLb.font = JKFont(14);
+    [cell addSubview:titleLb];
+    [titleLb mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.bottom.equalTo(cell);
+        make.left.mas_equalTo(SCALE_SIZE(15));
+       
+    }];
+    
+    
     
     if (self.type == JKInstallationIng || self.type == JKInstallationWait) {
         if (indexPath.row == 0) {
-            cell.textLabel.font = JKFont(16);
+            titleLb.font = JKFont(16);
         } else {
             UILabel *countsLb = [[UILabel alloc] init];
             countsLb.text = [NSString stringWithFormat:@"%@套",self.valueArr[indexPath.row]];
@@ -133,8 +155,33 @@
         }
     } else {
         if (indexPath.row == 0) {
-            cell.textLabel.font = JKFont(16);
+            titleLb.font = JKFont(16);
         } else {
+            
+            UILabel *typeLb = [[UILabel alloc] init];
+            typeLb.text = self.typeArr[indexPath.row];
+            typeLb.textColor = RGBHex(0x333333);
+            typeLb.textAlignment = NSTextAlignmentCenter;
+            typeLb.font = JKFont(14);
+            [cell addSubview:typeLb];
+            [typeLb mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.bottom.equalTo(cell);
+                make.left.equalTo(titleLb.mas_right).offset(10);
+                make.width.mas_equalTo(50);
+            }];
+            
+            UILabel *countsLb = [[UILabel alloc] init];
+            countsLb.text = self.valueArr[indexPath.row];
+            countsLb.textColor = RGBHex(0x333333);
+            countsLb.textAlignment = NSTextAlignmentCenter;
+            countsLb.font = JKFont(14);
+            [cell addSubview:countsLb];
+            [countsLb mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.bottom.equalTo(cell);
+                make.left.equalTo(typeLb.mas_right).offset(10);
+                make.width.mas_equalTo(50);
+            }];
+            
             UILabel *detailLb = [[UILabel alloc] init];
             detailLb.text = @"设备详情";
             detailLb.textColor = kThemeColor;
@@ -148,20 +195,9 @@
             [detailLb mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(cell).offset(10);
                 make.bottom.equalTo(cell).offset(-10);
+                make.left.equalTo(countsLb.mas_right).offset(10);
                 make.right.equalTo(cell.mas_right).offset(-SCALE_SIZE(15));
                 make.width.mas_equalTo(80);
-            }];
-            
-            UILabel *countsLb = [[UILabel alloc] init];
-            countsLb.text = self.valueArr[indexPath.row];
-            countsLb.textColor = RGBHex(0x333333);
-            countsLb.textAlignment = NSTextAlignmentCenter;
-            countsLb.font = JKFont(14);
-            [cell addSubview:countsLb];
-            [countsLb mas_makeConstraints:^(MASConstraintMaker *make) {
-                make.top.bottom.equalTo(cell);
-                make.right.equalTo(detailLb.mas_left);
-                make.width.mas_equalTo(width + width - 80);
             }];
         }
     }

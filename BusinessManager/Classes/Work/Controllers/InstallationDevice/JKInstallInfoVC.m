@@ -13,6 +13,7 @@
 #import "JKInstallInfoBottomCell.h"
 #import "JKInstallInfoModel.h"
 #import "JKEquipmentInfoVC.h"
+#import "JKNewEquipmentInfoVC.h"
 
 @interface JKInstallInfoVC () <UITableViewDelegate, UITableViewDataSource, JKInstallationDeviceCellDelegate, JKWorkTopCellDelegate>
 {
@@ -135,9 +136,20 @@
 
 #pragma mark -- 查看设备详情
 - (void)checkEquipmentInfo:(JKInstallInfoModel *)model withTag:(NSInteger)tag{
-    JKEquipmentInfoVC *eiVC = [[JKEquipmentInfoVC alloc] init];
-    eiVC.tskID = model.tabEquipmentBindPond[tag - 1][@"ITEM1"];
-    [self.navigationController pushViewController:eiVC animated:YES];
+     NSString *type = model.tabEquipmentBindPond[tag - 1][@"ITEM4"];
+    if ([type isEqualToString:@"KD326"]) {
+        JKEquipmentInfoVC *eiVC = [[JKEquipmentInfoVC alloc] init];
+        eiVC.tskID = model.tabEquipmentBindPond[tag - 1][@"ITEM1"];
+        [self.navigationController pushViewController:eiVC animated:YES];
+    }
+    
+    if ([type isEqualToString:@"QY601"]) {
+        JKNewEquipmentInfoVC *eiVC = [[JKNewEquipmentInfoVC alloc] init];
+        eiVC.tskID = model.tabEquipmentBindPond[tag - 1][@"ITEM1"];
+        [self.navigationController pushViewController:eiVC animated:YES];
+    }
+    
+
 }
 
 #pragma mark -- UITableViewDelegate && UITableViewDataSource

@@ -14,7 +14,8 @@
 #import "JKOperationRecordVC.h"
 #import "JKOpenAccountVC.h"
 #import "JKEquipmentInfoVC.h"
-
+#import "JKNewEquipmentInfoVC.h"
+#import "JKPondModel.h"
 @interface JKFarmerMainVC () <JKFarmerMainViewDelegate>
 {
     CGFloat _lat;
@@ -145,10 +146,18 @@
 }
 
 #pragma mark -- 设备详情
-- (void)pushDevicesInfoVC:(NSString *)deviceId {
-    JKEquipmentInfoVC *eiVC = [[JKEquipmentInfoVC alloc] init];
-    eiVC.tskID = deviceId;
-    [self.navigationController pushViewController:eiVC animated:YES];
+- (void)pushDevicesInfoVC:(JKPondChildDeviceModel *)dModel {
+    if ([dModel.type isEqualToString:@"KD326"]) {
+        JKEquipmentInfoVC *eiVC = [[JKEquipmentInfoVC alloc] init];
+        eiVC.tskID = dModel.ident;
+        [self.navigationController pushViewController:eiVC animated:YES];
+    }
+    
+    if ([dModel.type isEqualToString:@"QY601"]) {
+        JKNewEquipmentInfoVC *eiVC = [[JKNewEquipmentInfoVC alloc] init];
+        eiVC.tskID = dModel.ident;
+        [self.navigationController pushViewController:eiVC animated:YES];
+    }
 }
 
 #pragma mark -- 鱼塘详情
