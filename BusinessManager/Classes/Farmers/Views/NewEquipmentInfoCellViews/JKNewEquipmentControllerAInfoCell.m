@@ -111,7 +111,7 @@
     }];
     
     UILabel *ammeterUpLimitValueLb = [[UILabel alloc] init];
-    ammeterUpLimitValueLb.text = [NSString stringWithFormat:@"%@ A",JKIsNull(model.electricityUp1)];
+    ammeterUpLimitValueLb.text = [NSString stringWithFormat:@"%@ A",JKSafeNull(model.electricityUp1)];
 
     ammeterUpLimitValueLb.textColor = RGBHex(0x999999);
     ammeterUpLimitValueLb.textAlignment = NSTextAlignmentRight;
@@ -136,7 +136,7 @@
     }];
     
     UILabel *ammeterDownLimitValueLb = [[UILabel alloc] init];
-    ammeterDownLimitValueLb.text = [NSString stringWithFormat:@"%@ A",JKIsNull(model.electricityDown1)];
+    ammeterDownLimitValueLb.text = [NSString stringWithFormat:@"%@ A",JKSafeNull(model.electricityDown1)];
     ammeterDownLimitValueLb.textColor = RGBHex(0x999999);
     ammeterDownLimitValueLb.textAlignment = NSTextAlignmentRight;
     ammeterDownLimitValueLb.font = JKFont(14);

@@ -63,7 +63,7 @@
     self.model = pModel;
     self.dModel = model;
     self.pondNameLb.text = pModel.name;
-    self.typeLb.text = JKIsNull(model.type);
+    self.typeLb.text = JKSafeNull(model.type);
     
     if ([[NSString stringWithFormat:@"%@",model.workStatus] isEqualToString:@"0"]) {
 //        self.alarmType = @"正常";
@@ -106,12 +106,12 @@
         self.equimentStatus4Btn.selected = [[NSString stringWithFormat:@"%@",model.statusControlFour] isEqualToString:@"0"];
     }
     
-    self.oxyValueLb.text = [NSString stringWithFormat:@"%@",JKIsNull(model.dissolvedOxygen)];
-    self.temLb.text = [NSString stringWithFormat:@"%zd",[NSString stringWithFormat:@"%@",model.temperature].integerValue];
+    self.oxyValueLb.text = [NSString stringWithFormat:@"%@",JKSafeNull(model.dissolvedOxygen)];
+    self.temLb.text = [NSString stringWithFormat:@"%zd℃",[NSString stringWithFormat:@"%@",JKSafeNull(model.temperature)].integerValue];
     if ([[NSString stringWithFormat:@"%@",model.ph] isEqualToString:@"-1"]) {
         self.phLb.text = @"--";
     }else{
-        self.phLb.text = JKIsNull(model.ph);
+        self.phLb.text = JKSafeNull(model.ph);
     }
 }
 
