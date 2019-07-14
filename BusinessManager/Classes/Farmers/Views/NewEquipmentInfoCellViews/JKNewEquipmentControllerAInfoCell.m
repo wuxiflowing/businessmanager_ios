@@ -63,7 +63,7 @@
     }];
     
     UILabel *oUpLimitValueLb = [[UILabel alloc] init];
-    oUpLimitValueLb.text = model.oxyLimitUp1;
+    oUpLimitValueLb.text = [NSString stringWithFormat:@"%@",model.oxyLimitUp1];
     oUpLimitValueLb.textColor = RGBHex(0x999999);
     oUpLimitValueLb.textAlignment = NSTextAlignmentRight;
     oUpLimitValueLb.font = JKFont(14);
@@ -87,7 +87,7 @@
     }];
     
     UILabel *oDownLimitValueLb = [[UILabel alloc] init];
-    oDownLimitValueLb.text = model.oxyLimitDown1;
+    oDownLimitValueLb.text = [NSString stringWithFormat:@"%@",model.oxyLimitDown1];
     oDownLimitValueLb.textColor = RGBHex(0x999999);
     oDownLimitValueLb.textAlignment = NSTextAlignmentRight;
     oDownLimitValueLb.font = JKFont(14);
@@ -111,7 +111,8 @@
     }];
     
     UILabel *ammeterUpLimitValueLb = [[UILabel alloc] init];
-    ammeterUpLimitValueLb.text = [NSString stringWithFormat:@"%@ A",model.electricityUp1];
+    ammeterUpLimitValueLb.text = [NSString stringWithFormat:@"%@ A",JKIsNull(model.electricityUp1)];
+
     ammeterUpLimitValueLb.textColor = RGBHex(0x999999);
     ammeterUpLimitValueLb.textAlignment = NSTextAlignmentRight;
     ammeterUpLimitValueLb.font = JKFont(14);
@@ -135,7 +136,7 @@
     }];
     
     UILabel *ammeterDownLimitValueLb = [[UILabel alloc] init];
-    ammeterDownLimitValueLb.text = [NSString stringWithFormat:@"%@ A",model.electricityDown1];
+    ammeterDownLimitValueLb.text = [NSString stringWithFormat:@"%@ A",JKIsNull(model.electricityDown1)];
     ammeterDownLimitValueLb.textColor = RGBHex(0x999999);
     ammeterDownLimitValueLb.textAlignment = NSTextAlignmentRight;
     ammeterDownLimitValueLb.font = JKFont(14);
@@ -160,7 +161,7 @@
     }];
     
     UILabel *equipmentStatusValueLb = [[UILabel alloc] init];
-    if ([model.controlStatusAuto1 isEqualToString:@"1"]) {
+    if ([[NSString stringWithFormat:@"%@",model.controlStatusAuto1] isEqualToString:@"1"]) {
         equipmentStatusValueLb.text = @"自动";
     }else{
         equipmentStatusValueLb.text = @"手动";

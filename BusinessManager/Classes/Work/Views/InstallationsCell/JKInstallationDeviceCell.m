@@ -167,7 +167,7 @@
             [typeLb mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.bottom.equalTo(cell);
                 make.left.equalTo(titleLb.mas_right).offset(10);
-                make.width.mas_equalTo(50);
+                make.width.mas_equalTo(60);
             }];
             
             UILabel *countsLb = [[UILabel alloc] init];
@@ -179,7 +179,7 @@
             [countsLb mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.bottom.equalTo(cell);
                 make.left.equalTo(typeLb.mas_right).offset(10);
-                make.width.mas_equalTo(50);
+                make.width.mas_equalTo(60);
             }];
             
             UILabel *detailLb = [[UILabel alloc] init];

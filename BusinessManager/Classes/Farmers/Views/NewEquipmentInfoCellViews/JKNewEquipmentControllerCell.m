@@ -44,25 +44,25 @@
         make.size.mas_equalTo(CGSizeMake(100, 20));
     }];
     
-    UILabel *upLimitOneLb = [[UILabel alloc] init];
-    upLimitOneLb.text = @"选择连接方式";
-    upLimitOneLb.textColor = RGBHex(0x666666);
-    upLimitOneLb.textAlignment = NSTextAlignmentLeft;
-    upLimitOneLb.font = JKFont(14);
-    [self addSubview:upLimitOneLb];
-    [upLimitOneLb mas_makeConstraints:^(MASConstraintMaker *make) {
+    UILabel *connectionTypeLb = [[UILabel alloc] init];
+    connectionTypeLb.text = @"选择连接方式";
+    connectionTypeLb.textColor = RGBHex(0x666666);
+    connectionTypeLb.textAlignment = NSTextAlignmentLeft;
+    connectionTypeLb.font = JKFont(14);
+    [self addSubview:connectionTypeLb];
+    [connectionTypeLb mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(controllerLb.mas_bottom).offset(5);
         make.left.equalTo(controllerLb);
         make.size.mas_equalTo(CGSizeMake(120, 20));
     }];
     
-    UILabel *upLimitOneValueLb = [[UILabel alloc] init];
-    upLimitOneValueLb.text = [model.connectionType isEqualToString:@"0"] ?@"无线":@"有线";
-    upLimitOneValueLb.textColor = kThemeColor;
-    upLimitOneValueLb.textAlignment = NSTextAlignmentRight;
-    upLimitOneValueLb.font = JKFont(16);
-    [self addSubview:upLimitOneValueLb];
-    [upLimitOneValueLb mas_makeConstraints:^(MASConstraintMaker *make) {
+    UILabel *connectionTypeValueLb = [[UILabel alloc] init];
+    connectionTypeValueLb.text = model.connectionType.integerValue ?@"无线":@"有线";
+    connectionTypeValueLb.textColor = kThemeColor;
+    connectionTypeValueLb.textAlignment = NSTextAlignmentRight;
+    connectionTypeValueLb.font = JKFont(16);
+    [self addSubview:connectionTypeValueLb];
+    [connectionTypeValueLb mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(controllerStateLb.mas_bottom).offset(5);
         make.right.equalTo(controllerStateLb);
         make.size.mas_equalTo(CGSizeMake(60, 20));
@@ -76,7 +76,7 @@
     alarmOneLb.font = JKFont(14);
     [self addSubview:alarmOneLb];
     [alarmOneLb mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(upLimitOneLb.mas_bottom).offset(5);
+        make.top.equalTo(connectionTypeLb.mas_bottom).offset(5);
         make.left.equalTo(controllerLb);
         make.size.mas_equalTo(CGSizeMake(60, 20));
     }];
@@ -88,7 +88,7 @@
     alarmOneValueLb.font = JKFont(14);
     [self addSubview:alarmOneValueLb];
     [alarmOneValueLb mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(upLimitOneValueLb.mas_bottom).offset(5);
+        make.top.equalTo(connectionTypeValueLb.mas_bottom).offset(5);
         make.right.equalTo(controllerStateLb);
         make.size.mas_equalTo(CGSizeMake(60, 20));
     }];

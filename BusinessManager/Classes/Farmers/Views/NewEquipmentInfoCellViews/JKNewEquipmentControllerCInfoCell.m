@@ -63,7 +63,7 @@
     }];
     
     UILabel *oUpLimitValueLb = [[UILabel alloc] init];
-    oUpLimitValueLb.text = model.oxyLimitUp3;
+    oUpLimitValueLb.text = [NSString stringWithFormat:@"%@",JKIsNull(model.oxyLimitUp3)];
     oUpLimitValueLb.textColor = RGBHex(0x999999);
     oUpLimitValueLb.textAlignment = NSTextAlignmentRight;
     oUpLimitValueLb.font = JKFont(14);
@@ -87,7 +87,7 @@
     }];
     
     UILabel *oDownLimitValueLb = [[UILabel alloc] init];
-    oDownLimitValueLb.text = model.oxyLimitDown3;
+    oDownLimitValueLb.text = [NSString stringWithFormat:@"%@",JKIsNull(model.oxyLimitDown3)];
     oDownLimitValueLb.textColor = RGBHex(0x999999);
     oDownLimitValueLb.textAlignment = NSTextAlignmentRight;
     oDownLimitValueLb.font = JKFont(14);
@@ -111,7 +111,7 @@
     }];
     
     UILabel *ammeterUpLimitValueLb = [[UILabel alloc] init];
-    ammeterUpLimitValueLb.text = [NSString stringWithFormat:@"%@ A",model.electricityUp3];
+    ammeterUpLimitValueLb.text = [NSString stringWithFormat:@"%@ A",JKIsNull(model.electricityUp3)];
     ammeterUpLimitValueLb.textColor = RGBHex(0x999999);
     ammeterUpLimitValueLb.textAlignment = NSTextAlignmentRight;
     ammeterUpLimitValueLb.font = JKFont(14);
@@ -135,7 +135,7 @@
     }];
     
     UILabel *ammeterDownLimitValueLb = [[UILabel alloc] init];
-    ammeterDownLimitValueLb.text = [NSString stringWithFormat:@"%@ A",model.electricityDown3];
+    ammeterDownLimitValueLb.text = [NSString stringWithFormat:@"%@ A",JKIsNull(model.electricityDown3)];
     ammeterDownLimitValueLb.textColor = RGBHex(0x999999);
     ammeterDownLimitValueLb.textAlignment = NSTextAlignmentRight;
     ammeterDownLimitValueLb.font = JKFont(14);
@@ -160,7 +160,7 @@
     }];
     
     UILabel *equipmentStatusValueLb = [[UILabel alloc] init];
-    if ([model.controlStatusAuto3 isEqualToString:@"1"]) {
+    if ([[NSString stringWithFormat:@"%@",model.controlStatusAuto3] isEqualToString:@"1"]) {
         equipmentStatusValueLb.text = @"自动";
     }else{
         equipmentStatusValueLb.text = @"手动";
