@@ -136,7 +136,7 @@
 
 #pragma mark -- 查看设备详情
 - (void)checkEquipmentInfo:(JKInstallInfoModel *)model withTag:(NSInteger)tag{
-     NSString *type = model.tabEquipmentBindPond[tag - 1][@"ITEM4"];
+    NSString *type = model.tabEquipmentBindPond[tag - 1][@"ITEM4"];
     
     if ([type isEqualToString:@"QY601"]) {
         JKNewEquipmentInfoVC *eiVC = [[JKNewEquipmentInfoVC alloc] init];

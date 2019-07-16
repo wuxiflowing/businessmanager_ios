@@ -48,12 +48,12 @@
 @property (nonatomic, strong) NSArray *temperature;
 @property (nonatomic, strong) NSString *type;
 @property (nonatomic, strong) NSString *workStatus;
-@property (nonatomic, strong) NSString *aeratorControlTwo;
 @property (nonatomic, strong) NSString *aeratorControlOne;
+@property (nonatomic, strong) NSString *aeratorControlTwo;
 @property (nonatomic, strong) NSString *aeratorControlTree;
 @property (nonatomic, strong) NSString *aeratorControlFour;
-@property (nonatomic, strong) NSString *statusControlTwo;
 @property (nonatomic, strong) NSString *statusControlOne;
+@property (nonatomic, strong) NSString *statusControlTwo;
 @property (nonatomic, strong) NSString *statusControlTree;
 @property (nonatomic, strong) NSString *statusControlFour;
 @property (nonatomic, strong) NSString *ident;

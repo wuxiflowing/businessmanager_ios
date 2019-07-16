@@ -57,6 +57,12 @@
 
 #pragma mark -- UITableViewDelegate && UITableViewDataSource
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    if (self.dataSource.count > 0) {
+        JKNewEquipmentModel *model = self.dataSource[0];
+        if ([model.open3 isKindOfClass:[NSNull class]]) {
+            return 4;
+        }
+    }
     return 6;
 }
 
