@@ -84,29 +84,28 @@
 //        self.alarmType = @"数据解析异常";
         self.statusImageView.image = [UIImage imageNamed:@"icon_ponds_warning"];
     }
-    
 
     
     [self setControlStatusWithView:self.control1Lb status:model.aeratorControlOne];
     [self setControlStatusWithView:self.control2Lb status:model.aeratorControlTwo];
-    if ([model.aeratorControlTree isKindOfClass:[NSNull class]]) {
-        self.control3Lb.hidden = YES;
-        self.control4Lb.hidden = YES;
-    }else{
-        [self setControlStatusWithView:self.control3Lb status:model.aeratorControlTree];
-        [self setControlStatusWithView:self.control4Lb status:model.aeratorControlFour];
-    }
-
-
     self.equimentStatus1Btn.selected = [[NSString stringWithFormat:@"%@",model.statusControlOne] isEqualToString:@"0"];
     self.equimentStatus2Btn.selected = [[NSString stringWithFormat:@"%@",model.statusControlTwo] isEqualToString:@"0"];
-    if ([model.statusControlTree isKindOfClass:[NSNull class]]) {
+    if ([model.aeratorControlTree isKindOfClass:[NSNull class]]) {
+        self.control3Lb.hidden = YES;
         self.equimentStatus3Btn.hidden = YES;
+    }else{
+        [self setControlStatusWithView:self.control3Lb status:model.aeratorControlTree];
+        self.equimentStatus3Btn.selected = [[NSString stringWithFormat:@"%@",model.statusControlTree] isEqualToString:@"0"];
+    }
+    if ([model.aeratorControlFour isKindOfClass:[NSNull class]]) {
+        self.control4Lb.hidden = YES;
         self.equimentStatus4Btn.hidden = YES;
     }else{
-        self.equimentStatus3Btn.selected = [[NSString stringWithFormat:@"%@",model.statusControlTree] isEqualToString:@"0"];
+        [self setControlStatusWithView:self.control4Lb status:model.aeratorControlFour];
         self.equimentStatus4Btn.selected = [[NSString stringWithFormat:@"%@",model.statusControlFour] isEqualToString:@"0"];
     }
+    
+    
     
     if ([[NSString stringWithFormat:@"%@",model.workStatus] isEqualToString:@"3"]) {
         self.oxyValueLb.text = @"--";
