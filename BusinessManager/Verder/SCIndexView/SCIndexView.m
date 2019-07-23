@@ -151,6 +151,9 @@ static inline NSInteger SCPositionOfTextLayerInY(CGFloat y, CGFloat margin, CGFl
     }
     
     NSInteger firstVisibleSection = self.tableView.indexPathsForVisibleRows.firstObject.section;
+    if (firstVisibleSection == 0) {
+        return;
+    }
     CGFloat insetHeight = 0;
     if (!self.translucentForTableViewInNavigationBar) {
         currentSection = firstVisibleSection;

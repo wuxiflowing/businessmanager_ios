@@ -142,7 +142,7 @@
                     pcdModel.scheduled = dic[@"scheduled"];
                     pcdModel.temperature = [dic[@"temperature"] floatValue];
                     pcdModel.type = dic[@"type"];
-                    pcdModel.workStatus = [dic[@"workStatus"] integerValue];
+                    pcdModel.workStatus = dic[@"workStatus"];
                     NSArray *aeratorControls = dic[@"aeratorControlList"];
                     if (aeratorControls.count != 0) {
                         pcdModel.aeratorControlOne = aeratorControls[0][@"open"];
