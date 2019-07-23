@@ -197,18 +197,18 @@
                     pcdModel.alarmType = dic[@"alarmType"];
                     pcdModel.alertlineTwo = dic[@"alertlineTwo"];
                     pcdModel.automatic = dic[@"automatic"];
-                    pcdModel.dissolvedOxygen = dic[@"oxy"];
+                    pcdModel.dissolvedOxygen = [dic[@"oxy"] floatValue];
                     pcdModel.enabled = dic[@"enabled"];
                     pcdModel.deviceId = dic[@"id"];
                     pcdModel.ident = dic[@"identifier"];
                     pcdModel.name = dic[@"name"];
                     pcdModel.oxyLimitDownOne = dic[@"oxyLimitDownOne"];
                     pcdModel.oxyLimitUp = dic[@"oxyLimitUp"];
-                    pcdModel.ph = dic[@"ph"];
+                    pcdModel.ph = [dic[@"ph"] floatValue];
                     pcdModel.scheduled = dic[@"scheduled"];
-                    pcdModel.temperature = dic[@"temp"];
+                    pcdModel.temperature = [dic[@"temp"] floatValue];
                     pcdModel.type = dic[@"type"];
-                    pcdModel.workStatus = dic[@"workStatus"];
+                    pcdModel.workStatus = [dic[@"workStatus"] integerValue];
                     NSArray *aeratorControls = dic[@"deviceControlInfoBeanList"];
                     if (aeratorControls != nil && ![aeratorControls isKindOfClass:[NSNull class]] && aeratorControls.count != 0) {
                         pcdModel.aeratorControlOne = aeratorControls[0][@"open"];
