@@ -459,7 +459,7 @@
 		A84EFF7A213925AD0042FE96 /* JKEquipmentInfoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKEquipmentInfoCell.h; sourceTree = "<group>"; };
 		A84F863A21A583FD00C21337 /* JKRecyceCheckVC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JKRecyceCheckVC.h; sourceTree = "<group>"; };
 		A84F863B21A583FD00C21337 /* JKRecyceCheckVC.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JKRecyceCheckVC.m; sourceTree = "<group>"; };
-		A851981C20D0AABA00BA35FC /* BusinessManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BusinessManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A851981C20D0AABA00BA35FC /* 养殖管家(测).app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "养殖管家(测).app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A851982820D0AABB00BA35FC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A851982D20D0AABB00BA35FC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A851986320D0B8BA00BA35FC /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1040,7 +1040,7 @@
 		A851981D20D0AABA00BA35FC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A851981C20D0AABA00BA35FC /* BusinessManager.app */,
+				A851981C20D0AABA00BA35FC /* 养殖管家(测).app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1932,7 +1932,7 @@
 			);
 			name = BusinessManager;
 			productName = BusinessManager;
-			productReference = A851981C20D0AABA00BA35FC /* BusinessManager.app */;
+			productReference = A851981C20D0AABA00BA35FC /* 养殖管家(测).app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -2451,6 +2451,7 @@
 				CODE_SIGN_ENTITLEMENTS = BusinessManager/BusinessManager.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PY7VN3BA49;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2467,8 +2468,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/BusinessManager/Verder/BaiduMap/thirdlibs",
 				);
+				MARKETING_VERSION = 3.0.1114;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qyt.bm;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "养殖管家(测)";
 				PROVISIONING_PROFILE = "3510bab3-adce-449d-b466-2b82ca25d521";
 				PROVISIONING_PROFILE_SPECIFIER = "BusinessManager Development";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -2484,6 +2486,7 @@
 				CODE_SIGN_ENTITLEMENTS = BusinessManager/BusinessManager.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = PY7VN3BA49;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2500,8 +2503,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/BusinessManager/Verder/BaiduMap/thirdlibs",
 				);
+				MARKETING_VERSION = 3.0.1114;
 				PRODUCT_BUNDLE_IDENTIFIER = com.qyt.bm;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "养殖管家(测)";
 				PROVISIONING_PROFILE = "3510bab3-adce-449d-b466-2b82ca25d521";
 				PROVISIONING_PROFILE_SPECIFIER = "BusinessManager AdHoc";
 				TARGETED_DEVICE_FAMILY = 1;
