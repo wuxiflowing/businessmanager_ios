@@ -10,14 +10,14 @@
 #define Url_h
 
 // 测试
-#define kUrl_Base    @"http://apitest.celefish.com:8080"
-#define API_KEY @"c02fa8abe880869d950267c17e51a564"
-#define APP_KEY @"edf103568494ea87639ed23212c40dc7"
+//#define kUrl_Base    @"http://apitest.celefish.com:8080"
+//#define API_KEY @"c02fa8abe880869d950267c17e51a564"
+//#define APP_KEY @"edf103568494ea87639ed23212c40dc7"
 
 // 正式
-//#define kUrl_Base    @"http://api.celefish.com:8080"
-//#define API_KEY @"4521681f3976d526ff7ea73c0c48874a"
-//#define APP_KEY @"5070babb366cd0e78b6985f5cfb3b4ca"
+#define kUrl_Base    @"http://api.celefish.com:8080"
+#define API_KEY @"4521681f3976d526ff7ea73c0c48874a"
+#define APP_KEY @"5070babb366cd0e78b6985f5cfb3b4ca"
 
 #define kGtAppId @"FNYJcyC5q8A070BwYhy7i3"
 #define kGtAppKey @"Dq1k4xjV0x8IAxgWzQLo54"
